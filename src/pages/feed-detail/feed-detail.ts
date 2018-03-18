@@ -1,10 +1,9 @@
-import { FeedDetailPage } from './../feed-detail/feed-detail';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
 
 /**
- * Generated class for the FeedPage page.
+ * Generated class for the FeedDetailPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,21 +11,22 @@ import { MovieProvider } from '../../providers/movie/movie';
 
 @IonicPage()
 @Component({
-  selector: 'page-feed',
-  templateUrl: 'feed.html',
+  selector: 'page-feed-detail',
+  templateUrl: 'feed-detail.html',
 })
-export class FeedPage {
+export class FeedDetailPage {
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private movieProvider: MovieProvider
-  ) {}
+  ) { }
 
   movie = {}
+  id_movie = this.navParams.get("id")
 
-  getMovies() {
-    this.movieProvider.get()
+  getMovie(id) {
+    this.movieProvider.getbyId(id)
       .subscribe(data => {
         this.movie = data
       }, error => {
@@ -34,12 +34,8 @@ export class FeedPage {
       })
   }
 
-  goToFeedDetail(id_movie){
-    this.navCtrl.push(FeedDetailPage, {id: id_movie})
-  }
-
-  ionViewDidEnter() {
-    this.getMovies();
+  ionViewDidLoad() {
+    this.getMovie(this.id_movie)
   }
 
 }

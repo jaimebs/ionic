@@ -13,6 +13,30 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="card-background-page">
+  <!-- <ion-card *ngFor="let item of movie.results" >
 
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="'https://image.tmdb.org/t/p/w300/'+item.poster_path">
+      </ion-avatar>
+      <h2>{{item.title}}</h2>
+      <p>{{item.release_date | date:'dd/MM/yyyy'}}</p>
+    </ion-item>
+
+    <img [src]="'https://image.tmdb.org/t/p/w500/'+item.backdrop_path">
+
+    <ion-card-content>
+      <p>{{item.overview}}</p>
+    </ion-card-content>
+
+    <button ion-button full (click)="goToFeedDetail(item.id)">Detail</button>
+
+  </ion-card> -->
+  <ion-card *ngFor="let item of movie.results">
+    <img [src]="'https://image.tmdb.org/t/p/w500/'+item.backdrop_path"/>
+    <div class="card-title">{{item.title}}</div>
+    <div class="card-subtitle">{{item.release_date | date:'dd/MM/yyyy'}}</div>
+    <button ion-button full (click)="goToFeedDetail(item.id)">Detail</button>
+  </ion-card>
 </ion-content>

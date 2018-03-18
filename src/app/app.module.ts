@@ -1,6 +1,9 @@
+import { FeedDetailPageModule } from './../pages/feed-detail/feed-detail.module';
+import { FeedPageModule } from './../pages/feed/feed.module';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
@@ -10,8 +13,10 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FeedPageModule } from '../pages/feed/feed.module';
+import { MovieProvider } from '../providers/movie/movie';
+
 import { IntroPageModule } from '../pages/intro/intro.module';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +28,11 @@ import { IntroPageModule } from '../pages/intro/intro.module';
   ],
   imports: [
     BrowserModule,
-    FeedPageModule,
+    IonicModule.forRoot(MyApp),
+    HttpClientModule,
     IntroPageModule,
-    IonicModule.forRoot(MyApp)
+    FeedPageModule,
+    FeedDetailPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,7 +45,8 @@ import { IntroPageModule } from '../pages/intro/intro.module';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    MovieProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
