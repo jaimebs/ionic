@@ -34,6 +34,10 @@ export class FeedDetailPage {
       })
   }
 
+  closeModal(){
+    this.navCtrl.pop();
+  }
+
   ionViewDidLoad() {
     this.getMovie(this.id_movie)
   }

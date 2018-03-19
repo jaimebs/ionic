@@ -12,8 +12,7 @@
 
 </ion-header>
 
-
-<ion-content>
+<ion-content tappable>
   <ion-card>
 
     <ion-item>
@@ -29,6 +28,7 @@
     <ion-card-content>
       <p>{{movie.overview}}</p>
     </ion-card-content>
+    <button ion-button color="danger" full (click)="closeModal()">Close</button>
 
   </ion-card>
 </ion-content>
