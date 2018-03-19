@@ -1,15 +1,7 @@
-import { UtilProvider } from './../../providers/util';
 import { FeedDetailPage } from './../feed-detail/feed-detail';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
-
-/**
- * Generated class for the FeedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -22,26 +14,28 @@ export class FeedPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private movieProvider: MovieProvider,
-    private utilProvider: UtilProvider,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) { }
 
   movie = {}
   refresher: any;
-  loading = this.utilProvider.loading()
 
   getMovies() {
-    if(!this.refresher)
-      this.loading.present()
+    let loading = this.loadingCtrl.create({
+      content: 'Loading...',
+      dismissOnPageChange: true
+    });
+    loading.present()
     this.movieProvider.get()
       .subscribe(data => {
-        this.loading.dismiss()
-        if(this.refresher)
-          this.refresher.complete();
+        loading.dismiss()
         this.movie = data
+        if(this.refresher) 
+          this.refresher.complete();
       }, error => {
-        this.loading.dismiss()
-        if(this.refresher)
+        loading.dismiss()
+        if (this.refresher)
           this.refresher.complete();
         console.log(error)
       })
